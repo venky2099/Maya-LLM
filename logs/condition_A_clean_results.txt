@@ -1,0 +1,5 @@
+Condition A CLEAN — Baseline (Real TRACE Data, All 8 Domains)
+AA=4.17 | BWT=1.05 | FWT=0.00
+Runtime=64.5min | Bhaya Quiescence=True
+All 8 domains clean — no NaN
+Seed=42

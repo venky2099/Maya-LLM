@@ -1,0 +1,4 @@
+Condition A seed=42 2000samples
+AA=4.20 BWT=1.21 FWT=0.00
+Runtime=65.6min
+Bhaya Quiescence=True

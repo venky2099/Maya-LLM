@@ -1,0 +1,9 @@
+Condition F — Full Maya-LLM (Real TRACE Data)
+AA=3.62 | BWT=0.99 | FWT=0.00
+Runtime=65.0min | Bhaya Quiescence=True
+NaN domains: C-STANCE, MeetingBank, Py150, 20Minuten
+
+vs Condition A (Real TRACE):
+AA=4.35 | BWT=1.21 | FWT=0.00
+
+Delta: AA -0.73 (Maya better) | BWT -0.22 (Maya less forgetting)

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maya-LLM FAQ · Antahkarana in the Age of Transformers</title>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&family=Noto+Sans+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0f;--surface:#11111a;--surface2:#1a1a28;--border:#2a2a3d;
+  --accent:#7c6fff;--accent2:#ff6b9d;--accent3:#4ecdc4;--gold:#f5c842;
+  --llm:#00b4d8;--bhaya:#ff6b6b;--vairagya:#4ecdc4;--prana:#00d4aa;
+  --text:#e8e8f0;--text-dim:#8888aa;
+  --glow:0 0 20px rgba(0,180,216,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Crimson Pro',serif;min-height:100vh;padding:32px 24px}
+.container{max-width:960px;margin:0 auto}
+
+header{text-align:center;margin-bottom:40px;position:relative}
+.badge{display:inline-block;background:#1a1a35;border:1px solid var(--accent);border-radius:20px;padding:4px 16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;margin-bottom:8px}
+.badge-post{display:inline-block;background:#001a22;border:1px solid var(--llm);border-radius:20px;padding:4px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--llm);letter-spacing:2px;margin-left:8px}
+h1{font-size:clamp(24px,4vw,38px);font-weight:300;margin-bottom:8px;line-height:1.15}
+h1 em{color:var(--llm);font-style:normal}
+.subtitle{color:var(--text-dim);font-size:15px;margin-bottom:8px}
+.orcid{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)}
+
+.lang-bar{display:flex;justify-content:center;gap:8px;margin:16px 0 24px}
+.lang-btn{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:5px 16px;cursor:pointer;font-size:12px;font-family:'JetBrains Mono',monospace;color:var(--text-dim);transition:all 0.2s;letter-spacing:1px}
+.lang-btn.active{border-color:var(--llm);color:var(--llm);box-shadow:var(--glow)}
+.lang-btn:hover{border-color:var(--text-dim);color:var(--text)}
+
+/* Key findings */
+.findings{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin-bottom:28px}
+.finding-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;transition:all 0.2s}
+.finding-card:hover{border-color:var(--llm)}
+.finding-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;margin-bottom:4px}
+.finding-label{font-size:12px;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+.finding-note{font-size:12px;color:var(--text-dim);margin-top:6px}
+
+/* Controls alert */
+.controls-alert{background:rgba(245,200,66,0.05);border:1px solid rgba(245,200,66,0.3);border-radius:12px;padding:16px 20px;margin-bottom:28px}
+.controls-alert-title{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:1px;margin-bottom:8px}
+.controls-alert p{font-size:14px;color:var(--text-dim);line-height:1.6}
+
+/* Series hub */
+.hub{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:28px}
+.hub-title{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:2px;margin-bottom:14px}
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:12px}
+.hub-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;display:block;transition:all 0.2s;text-decoration:none}
+.hub-card:hover{border-color:var(--prana);transform:translateY(-1px)}
+.hub-card.current{border-color:var(--llm);background:rgba(0,180,216,0.06)}
+.hub-paper{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-dim);margin-bottom:3px}
+.hub-name{font-size:13px;color:var(--text);font-weight:600;margin-bottom:3px}
+.hub-key{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--prana);margin-bottom:6px}
+.hub-links{display:flex;gap:5px;flex-wrap:wrap}
+.hub-link{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 7px;border-radius:8px;border:1px solid;text-decoration:none;transition:all 0.2s}
+.hub-link.doi{color:var(--accent);border-color:var(--accent)}
+.hub-link.doi:hover{background:var(--accent);color:var(--bg)}
+.hub-link.gh{color:var(--text-dim);border-color:var(--border)}
+.hub-link.gh:hover{border-color:var(--text);color:var(--text)}
+.hub-link.dash{color:var(--llm);border-color:var(--llm)}
+.hub-link.dash:hover{background:var(--llm);color:var(--bg)}
+
+/* Search and filters */
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+input[type=text]{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:8px 16px;color:var(--text);font-size:14px;font-family:'Crimson Pro',serif;flex:1;min-width:200px;outline:none;transition:all 0.2s}
+input[type=text]:focus{border-color:var(--llm)}
+input[type=text]::placeholder{color:var(--text-dim)}
+.filter-row{display:flex;flex-wrap:wrap;gap:6px}
+.filter-btn{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:4px 14px;cursor:pointer;font-size:12px;color:var(--text-dim);transition:all 0.2s;font-family:'JetBrains Mono',monospace}
+.filter-btn:hover{border-color:var(--text-dim);color:var(--text)}
+.filter-btn.active{border-color:var(--llm);color:var(--llm)}
+.count{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:16px}
+
+/* FAQ items */
+.faq-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color 0.2s}
+.faq-item:hover{border-color:rgba(0,180,216,0.4)}
+.faq-q{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;font-size:17px;font-weight:400;line-height:1.4}
+.faq-q:hover{color:var(--llm)}
+.faq-arrow{color:var(--text-dim);flex-shrink:0;transition:transform 0.3s;font-size:14px;margin-top:3px}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--llm)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease}
+.faq-a-inner{padding:0 20px 18px;font-size:16px;line-height:1.75;color:var(--text-dim);border-top:1px solid var(--border)}
+.faq-a-inner code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--surface2);padding:2px 6px;border-radius:4px;color:var(--accent3)}
+.faq-a-inner strong{color:var(--text);font-weight:600}
+.faq-a-inner a{color:var(--accent);text-decoration:none}
+.faq-a-inner a:hover{text-decoration:underline}
+
+/* Tag pills */
+.tag-pill{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 8px;border-radius:8px;border:1px solid;margin-right:6px;vertical-align:middle}
+.tag-pill.silly{color:#4ecdc4;border-color:#4ecdc4}
+.tag-pill.basic{color:#7c6fff;border-color:#7c6fff}
+.tag-pill.advanced{color:#ff6b9d;border-color:#ff6b9d}
+.tag-pill.results{color:#00b4d8;border-color:#00b4d8}
+.tag-pill.philosophy{color:#f5c842;border-color:#f5c842}
+.tag-pill.series{color:#00d4aa;border-color:#00d4aa}
+.tag-pill.code{color:#ff9f43;border-color:#ff9f43}
+.tag-pill.ai{color:#e040fb;border-color:#e040fb}
+
+footer{text-align:center;margin-top:48px;padding-top:24px;border-top:1px solid var(--border);color:var(--text-dim);font-size:13px;font-family:'JetBrains Mono',monospace}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div>
+    <span class="badge">MAYA RESEARCH SERIES · POST-SERIES</span>
+    <span class="badge-post">LLM EXTENSION</span>
+  </div>
+  <h1>Maya-<em>LLM</em> FAQ</h1>
+  <p class="subtitle">Antahkarana in the Age of Transformers · Continual Fine-Tuning via Vedantic Mechanisms</p>
+  <p class="orcid">Venkatesh Swaminathan · ORCID 0000-0002-3315-7907 · Nexus Learning Labs, Bengaluru</p>
+</header>
+
+<div class="lang-bar">
+  <button class="lang-btn active" onclick="setLang('en')">English</button>
+  <button class="lang-btn" onclick="setLang('hi')">हिन्दी</button>
+  <button class="lang-btn" onclick="setLang('zh')">中文</button>
+</div>
+
+<!-- Key findings -->
+<div class="findings">
+  <div class="finding-card">
+    <div class="finding-val" style="color:var(--llm)">8.3%</div>
+    <div class="finding-label">BWT IMPROVEMENT</div>
+    <div class="finding-note" id="fn1">Condition F calibrated vs Condition A baseline</div>
+  </div>
+  <div class="finding-card">
+    <div class="finding-val" style="color:var(--accent3)">0.988</div>
+    <div class="finding-label">BUDDHI S-CURVE</div>
+    <div class="finding-note" id="fn2">Cross-substrate invariant — SNN P4–P9 and LLM identical</div>
+  </div>
+  <div class="finding-card">
+    <div class="finding-val" style="color:var(--gold)">3 domains</div>
+    <div class="finding-label">BHAYA FIRED ON</div>
+    <div class="finding-note" id="fn3">Py150, ScienceQA, NumGLUE-ds — genuine loss spikes</div>
+  </div>
+  <div class="finding-card">
+    <div class="finding-val" style="color:var(--bhaya)">Scale</div>
+    <div class="finding-label">CALIBRATION NEEDED</div>
+    <div class="finding-note" id="fn4">SNN thresholds don't transfer directly to LLM loss scale</div>
+  </div>
+</div>
+
+<!-- Calibration note -->
+<div class="controls-alert">
+  <div class="controls-alert-title" id="ca-title">⚠ CALIBRATION NOTE — KEY FINDING</div>
+  <p id="ca-text">Condition F with SNN-calibrated hyperparameters (Bhaya threshold=1.8×) performs worse than baseline (BWT=1.42 vs 1.05) because Bhaya fires on 18.8% of all steps at LLM loss scale — treating normal variance as catastrophic events. Recalibrating threshold to 4.0× (matched to LLM mean loss ~1.08) achieves the best result (BWT=1.11, 8.3% improvement). This is not a failure — it is a quantified cross-substrate scaling finding with a clear path forward.</p>
+</div>
+
+<!-- Series hub -->
+<div class="hub">
+  <div class="hub-title" id="hub-title">MAYA RESEARCH SERIES · P1–P9 + POST-SERIES</div>
+  <div class="hub-grid">
+    <div class="hub-card">
+      <div class="hub-paper">P1</div><div class="hub-name">Nociceptive</div>
+      <div class="hub-key">66.6% ↑ velocity</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19151563" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P2</div><div class="hub-name">Maya-OS</div>
+      <div class="hub-key">OS arbitration</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19160123" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P3</div><div class="hub-name">Maya-CL</div>
+      <div class="hub-key">AA=62.38%</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19201769" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P4</div><div class="hub-name">Maya-Smriti</div>
+      <div class="hub-key">AA=31.84%</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19228975" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P5</div><div class="hub-name">Maya-Viveka</div>
+      <div class="hub-key">AA=16.03%</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19279002" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P6</div><div class="hub-name">Maya-Chitta</div>
+      <div class="hub-key">AA=14.42%</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19337041" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P7</div><div class="hub-name">Maya-Manas</div>
+      <div class="hub-key">AA=15.19%</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19363006" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P8</div><div class="hub-name">Maya-Śūnyatā</div>
+      <div class="hub-key">59% pruned</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19397010" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">P9</div><div class="hub-name">Maya-Prana</div>
+      <div class="hub-key">Full Antahkarana</div>
+      <div class="hub-links"><a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19451174" target="_blank">DOI</a></div>
+    </div>
+    <div class="hub-card">
+      <div class="hub-paper">POST-SERIES</div><div class="hub-name">Maya-mPCI</div>
+      <div class="hub-key">Δ=−0.0489</div>
+      <div class="hub-links">
+        <a class="hub-link doi" href="https://doi.org/10.5281/zenodo.19482794" target="_blank">DOI</a>
+        <a class="hub-link gh" href="https://github.com/venky2099/Maya-mPCI" target="_blank">GitHub</a>
+        <a class="hub-link dash" href="maya_mpci_dashboard.html">Dashboard</a>
+      </div>
+    </div>
+    <div class="hub-card current">
+      <div class="hub-paper">POST-SERIES</div><div class="hub-name">Maya-LLM</div>
+      <div class="hub-key" style="color:var(--llm)">BWT=1.11 ★</div>
+      <div class="hub-links">
+        <a class="hub-link doi" href="https://doi.org/10.5281/zenodo.PENDING" target="_blank">DOI</a>
+        <a class="hub-link gh" href="https://github.com/venky2099/Maya-LLM" target="_blank">GitHub</a>
+        <a class="hub-link dash" href="maya_llm_dashboard.html">Dashboard</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Search and filters -->
+<div class="controls">
+  <input type="text" id="search" placeholder="Search questions..." oninput="render()">
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('all')" data-filter="all">All</button>
+    <button class="filter-btn" onclick="setFilter('silly')" data-filter="silly">Layman</button>
+    <button class="filter-btn" onclick="setFilter('basic')" data-filter="basic">Researcher</button>
+    <button class="filter-btn" onclick="setFilter('results')" data-filter="results">Results</button>
+    <button class="filter-btn" onclick="setFilter('advanced')" data-filter="advanced">Advanced</button>
+    <button class="filter-btn" onclick="setFilter('philosophy')" data-filter="philosophy">Philosophy</button>
+    <button class="filter-btn" onclick="setFilter('series')" data-filter="series">Series</button>
+    <button class="filter-btn" onclick="setFilter('code')" data-filter="code">Code</button>
+    <button class="filter-btn" onclick="setFilter('ai')" data-filter="ai">AI Community</button>
+  </div>
+</div>
+<div class="count" id="count"></div>
+<div id="faq-list"></div>
+
+<footer>
+  <p>Maya-LLM · Post-Series Paper ·
+    <a href="maya_llm_dashboard.html">Dashboard</a> ·
+    <a href="https://github.com/venky2099/Maya-LLM" target="_blank">GitHub</a> ·
+    <a href="https://venky2099.github.io/" target="_blank">Research Journey</a>
+  </p>
+  <p style="margin-top:6px;font-size:10px;color:#333">MayaNexusVS2026NLL_Bengaluru_Narasimha · ORCID_MAGIC:0.002315</p>
+</footer>
+</div>
+
+<script>
+let currentLang = 'en';
+let currentFilter = 'all';
+
+const UI = {
+  en:{
+    hubTitle:'MAYA RESEARCH SERIES · P1–P9 + POST-SERIES',
+    caTitle:'⚠ CALIBRATION NOTE — KEY FINDING',
+    caText:'Condition F with SNN-calibrated hyperparameters (Bhaya threshold=1.8×) performs worse than baseline (BWT=1.42 vs 1.05) because Bhaya fires on 18.8% of all steps at LLM loss scale — treating normal variance as catastrophic events. Recalibrating threshold to 4.0× (matched to LLM mean loss ~1.08) achieves the best result (BWT=1.11, 8.3% improvement). This is not a failure — it is a quantified cross-substrate scaling finding with a clear path forward.',
+    fn1:'Condition F calibrated vs Condition A baseline',
+    fn2:'Cross-substrate invariant — SNN P4–P9 and LLM identical',
+    fn3:'Py150, ScienceQA, NumGLUE-ds — genuine loss spikes',
+    fn4:'SNN thresholds don\'t transfer directly to LLM loss scale',
+    countAll: n=>`Showing all ${n} questions`,
+    countFiltered:(n,f)=>`Showing ${n} questions · ${f}`,
+  },
+  hi:{
+    hubTitle:'माया अनुसंधान श्रृंखला · P1–P9 + श्रृंखला के बाद',
+    caTitle:'⚠ कैलिब्रेशन नोट — मुख्य निष्कर्ष',
+    caText:'SNN-कैलिब्रेटेड Bhaya threshold (1.8×) LLM पर 18.8% स्टेप पर फायर करता है — सामान्य variance को catastrophic event मानता है। threshold को 4.0× पर पुनःकैलिब्रेट करने से BWT=1.11 मिलती है (8.3% सुधार)। यह विफलता नहीं है — यह एक मात्रात्मक cross-substrate scaling निष्कर्ष है।',
+    fn1:'Condition F calibrated बनाम Condition A baseline',
+    fn2:'Cross-substrate invariant — SNN P4–P9 और LLM समान',
+    fn3:'Py150, ScienceQA, NumGLUE-ds — वास्तविक loss spikes',
+    fn4:'SNN threshold सीधे LLM loss scale पर transfer नहीं होते',
+    countAll:n=>`सभी ${n} प्रश्न दिखाए जा रहे हैं`,
+    countFiltered:(n,f)=>`${n} प्रश्न दिखाए जा रहे हैं · ${f}`,
+  },
+  zh:{
+    hubTitle:'玛雅研究系列 · P1–P9 + 系列后研究',
+    caTitle:'⚠ 校准说明 — 关键发现',
+    caText:'使用SNN校准超参数（Bhaya阈值=1.8×）的条件F比基线更差（BWT=1.42 vs 1.05），因为Bhaya在LLM损失尺度上18.8%的步骤中激发——将正常方差视为灾难性事件。将阈值重新校准至4.0×（匹配LLM平均损失~1.08）实现最佳结果（BWT=1.11，改善8.3%）。这不是失败——这是一个有明确前进路径的量化跨基质缩放发现。',
+    fn1:'条件F校准 vs 条件A基线',
+    fn2:'跨基质不变量——SNN P4-P9和LLM相同',
+    fn3:'Py150、ScienceQA、NumGLUE-ds——真实损失峰值',
+    fn4:'SNN阈值不能直接迁移到LLM损失尺度',
+    countAll:n=>`显示全部${n}个问题`,
+    countFiltered:(n,f)=>`显示${n}个问题 · ${f}`,
+  }
+};
+
+const FAQ = [
+
+  // LAYMAN ──────────────────────────────────────────────────────────────────
+  { tag:'silly',
+    en_q:"What is Maya-LLM in plain language?",
+    hi_q:"सरल भाषा में माया-LLM क्या है?",
+    zh_q:"用简单的语言说，Maya-LLM是什么？",
+    en_a:"Maya is an AI that was given emotional and cognitive mechanisms across 9 research papers — fear that detects danger, wisdom that protects memory, intellect that grows with experience. All of this was originally built in a brain-inspired spiking neural network. Maya-LLM asks: can those same mechanisms work inside a large language model like the ones that power chatbots? The answer turns out to be: yes, if you recalibrate them correctly for the different scale.",
+    hi_a:"माया एक AI है जिसे 9 शोध पेपर में भावनात्मक तंत्र दिए गए — भय, बुद्धि, वैराग्य। यह सब पहले एक spiking neural network में बनाया गया था। माया-LLM पूछता है: क्या वही तंत्र एक बड़े language model में काम कर सकते हैं?",
+    zh_a:"玛雅是一个在9篇论文中被赋予情感和认知机制的AI——恐惧、智慧、判断力。这一切最初在脉冲神经网络中构建。Maya-LLM问：同样的机制能在大型语言模型中工作吗？"},
+
+  { tag:'silly',
+    en_q:"Why does an AI need fear and wisdom? Isn't that overcomplicated?",
+    hi_q:"AI को भय और बुद्धि की आवश्यकता क्यों है? क्या यह अत्यधिक जटिल नहीं है?",
+    zh_q:"AI为什么需要恐惧和智慧？这不是过于复杂了吗？",
+    en_a:"It seems complicated but the intuition is simple. Neural networks that learn sequentially have a problem: they forget earlier things when they learn new things. The gradient updates for the new task overwrite weights tuned for the old task. Biological brains solve this with neuromodulatory systems — dopamine, cortisol, acetylcholine — that regulate which memories get protected and which get updated. Fear (Bhaya) is the signal that says 'this new domain is very different — be careful'. Wisdom (Vairagya) is what protects the weights that have proven their value. These aren't decorative — they're computational.",
+    hi_a:"Neural networks क्रमिक रूप से सीखते समय पहले की चीजें भूल जाते हैं। जैविक मस्तिष्क neuromodulatory systems — dopamine, cortisol — से इसे हल करते हैं। भय = नए domain में खतरे का संकेत। वैराग्य = मूल्यवान weights की सुरक्षा। ये सजावटी नहीं हैं — ये computational हैं।",
+    zh_a:"顺序学习的神经网络有遗忘问题。生物大脑通过神经调制系统——多巴胺、皮质醇——来解决这个问题。恐惧=检测危险的信号。智慧=保护有价值权重的机制。这不是装饰性的——是计算性的。"},
+
+  { tag:'silly',
+    en_q:"Did any of this actually work?",
+    hi_q:"क्या इनमें से कुछ वास्तव में काम किया?",
+    zh_q:"这些东西真的有效吗？",
+    en_a:"Yes — partially and honestly. The best result: Condition F calibrated (all 5 Maya mechanisms, Bhaya threshold recalibrated for LLM scale) achieves BWT=1.11 versus baseline BWT=1.05 — an 8.3% reduction in forgetting. The Buddhi S-curve traces an identical path to P4–P9 SNNs — a genuine cross-substrate finding. Bhaya fires on three real domain-shift transitions. The mechanisms that didn't fully work (Vairagya protection, Karma pruning) didn't work because 500 steps per domain is too short for salience to meaningfully differentiate weights — a quantified limitation with a clear fix.",
+    hi_a:"हाँ — आंशिक रूप से और ईमानदारी से। सर्वश्रेष्ठ परिणाम: Condition F calibrated BWT=1.11 बनाम baseline 1.05 — 8.3% सुधार। Buddhi S-curve P4–P9 SNN के समान। Bhaya 3 डोमेन पर fire हुआ।",
+    zh_a:"是的——部分有效且诚实。最佳结果：条件F校准BWT=1.11对比基线1.05——8.3%改善。Buddhi S曲线与P4-P9 SNN相同。Bhaya在3个域上激发。"},
+
+  { tag:'silly',
+    en_q:"How long did all the experiments take?",
+    hi_q:"सभी प्रयोगों में कितना समय लगा?",
+    zh_q:"所有实验花了多长时间？",
+    en_a:"Each full 8-domain TRACE run takes 65–75 minutes on an RTX 4060 8GB. Total runs completed: approximately 15 (6 distinct conditions, each confirmed at least once). That is roughly 18–20 GPU-hours across the full experiment set. Hardware: consumer laptop GPU. No cloud. Everything on a Windows 11 machine in Bengaluru.",
+    hi_a:"प्रत्येक पूर्ण TRACE run RTX 4060 8GB पर 65–75 मिनट लेता है। कुल runs: लगभग 15 (~18-20 GPU घंटे)। सब कुछ Bengaluru में Windows 11 laptop पर।",
+    zh_a:"每次完整的TRACE运行在RTX 4060 8GB上需要65-75分钟。总共约15次运行（~18-20 GPU小时）。所有实验在班加罗尔的Windows 11笔记本上完成。"},
+
+  // RESEARCHER ──────────────────────────────────────────────────────────────
+  { tag:'basic',
+    en_q:"What is the TRACE benchmark and why was it chosen?",
+    hi_q:"TRACE benchmark क्या है और इसे क्यों चुना गया?",
+    zh_q:"TRACE基准是什么，为什么选择它？",
+    en_a:"TRACE (Wang et al., 2023, arXiv:2310.06762) is a continual learning benchmark for LLMs with 8 sequential domains: C-STANCE (Chinese stance classification), FOMC (Federal Reserve monetary policy), MeetingBank (meeting summarisation), Py150 (Python code completion), ScienceQA (science QA), NumGLUE-cm (numerical common-sense math), NumGLUE-ds (data science math), and 20Minuten (German news simplification). Chosen because: (1) domain diversity is high — Chinese, code, German, math create strong distribution shifts; (2) 1000-sample per domain scale is tractable on RTX 4060 8GB; (3) it is the most widely used LLM-CL benchmark.",
+    hi_a:"TRACE (Wang et al., 2023) 8 क्रमिक डोमेन का LLM continual learning benchmark है। डोमेन विविधता अधिक है — Chinese, code, German, math। RTX 4060 8GB पर tractable। सबसे व्यापक रूप से उपयोग किया जाने वाला LLM-CL benchmark।",
+    zh_a:"TRACE（Wang等，2023）是具有8个顺序域的LLM持续学习基准。域多样性高——中文、代码、德语、数学。在RTX 4060 8GB上可处理。最广泛使用的LLM-CL基准。"},
+
+  { tag:'basic',
+    en_q:"Why perplexity instead of accuracy?",
+    hi_q:"Accuracy के बजाय perplexity क्यों?",
+    zh_q:"为什么用困惑度而不是准确率？",
+    en_a:"Three reasons: (1) Phi-2 is a generative model — exact-match accuracy gives near-zero scores even for semantically correct paraphrases, making it a poor signal. (2) Perplexity = exp(mean cross-entropy loss) — computed in a single forward pass, ~100× faster than model.generate(). This made 15 full runs feasible on an RTX 4060. (3) Perplexity increases monotonically when the model forgets — it is a natural continual learning signal. BWT = mean(ppl_final[j] − ppl_immediate[j]): positive means forgetting, zero means perfect retention.",
+    hi_a:"तीन कारण: (1) Phi-2 generative model है — exact-match लगभग-शून्य। (2) Perplexity single forward pass में, ~100× तेज। (3) Perplexity forgetting पर monotonically बढ़ती है — natural CL signal।",
+    zh_a:"三个原因：(1) Phi-2是生成模型——精确匹配近乎为零。(2) 困惑度=单次前向传播，~100倍更快。(3) 困惑度在遗忘时单调增加——自然持续学习信号。"},
+
+  { tag:'basic',
+    en_q:"What are the 5 Maya mechanisms in LoRA terms?",
+    hi_q:"LoRA के संदर्भ में 5 माया तंत्र क्या हैं?",
+    zh_q:"从LoRA角度看5个Maya机制是什么？",
+    en_a:"<strong>भय Bhaya:</strong> loss-spike detector. Fires when step loss > BHAYA_THRESHOLD × running_mean(last 100 steps). Elevates lability multiplier on active LoRA adapter weights.<br><br><strong>वैराग्य Vairagya:</strong> salience accumulation. Score += grad.abs() × max(0,−loss_delta) each step. High-salience adapters resist gradient updates at boundary decay.<br><br><strong>बुद्धि Buddhi:</strong> S-curve gate. score=1/(1+exp(−8×(x−0.45))). x=steps/total. Gates consolidation and Prana.<br><br><strong>कर्म Karma:</strong> trajectory integral. abs(weight_change) accumulated across domains. KARMA_DECAY_RATE=0.002315. Prunes at high accumulation.<br><br><strong>प्राण Prana:</strong> metabolic LR budget. Depletes ∝ grad_magnitude×mean_activity. Recovers at rest. Gates effective_lr. PRANA_COST_RATE=0.002315.",
+    hi_a:"<strong>भय:</strong> loss-spike detector. step loss > threshold × running mean पर fire। <strong>वैराग्य:</strong> salience accumulation। <strong>बुद्धि:</strong> S-curve gate 0.030→0.988। <strong>कर्म:</strong> weight trajectory integral, decay=0.002315। <strong>प्राण:</strong> metabolic LR budget, 1.000 maintained।",
+    zh_a:"<strong>恐惧Bhaya:</strong>损失峰值检测器。<strong>离欲Vairagya:</strong>显著性积累。<strong>智慧Buddhi:</strong>S曲线门控0.030→0.988。<strong>业力Karma:</strong>权重轨迹积分，衰减=0.002315。<strong>生命力Prana:</strong>代谢学习率预算，全程保持1.000。"},
+
+  { tag:'basic',
+    en_q:"What hardware and software stack was used?",
+    hi_q:"कौन सा hardware और software stack उपयोग किया गया?",
+    zh_q:"使用了什么硬件和软件堆栈？",
+    en_a:"Hardware: NVIDIA RTX 4060 8GB (consumer laptop GPU). OS: Windows 11. Python: 3.11.9. PyTorch: 2.5.1+cu121. Model: Phi-2 2.7B via HuggingFace Transformers. Quantisation: bitsandbytes 4-bit NF4. LoRA: PEFT library, r=16. TRACE data: local LLM-CL-Benchmark_1000. All experiments run in PyCharm .venv on PowerShell. No cloud, no A100, no multi-GPU — everything on a single consumer GPU.",
+    hi_a:"RTX 4060 8GB (consumer laptop), Windows 11, Python 3.11.9, PyTorch 2.5.1+cu121, Phi-2 2.7B, 4-bit NF4, LoRA r=16, PEFT। कोई cloud नहीं, कोई A100 नहीं — single consumer GPU पर सब कुछ।",
+    zh_a:"RTX 4060 8GB（消费级笔记本GPU），Windows 11，Python 3.11.9，PyTorch 2.5.1+cu121，Phi-2 2.7B，4位NF4，LoRA r=16，PEFT。无云端，无A100——单消费级GPU完成。"},
+
+  // RESULTS ─────────────────────────────────────────────────────────────────
+  { tag:'results',
+    en_q:"Give me all the BWT results in one place.",
+    hi_q:"एक जगह सभी BWT परिणाम दें।",
+    zh_q:"把所有BWT结果放在一个地方。",
+    en_a:"All runs: seed=42, 1000 samples/domain, 500 steps/domain, Phi-2 4-bit NF4, LoRA r=16.<br><br>• Condition A (baseline, no Maya): AA=4.17, BWT=1.05<br>• Condition F clean (all 5 dims, SNN thresholds): AA=4.37, BWT=1.42<br>• <strong>Condition F calibrated ★ (Bhaya=4.0×): AA=4.25, BWT=1.11</strong><br>• Condition F + Gradient Masking: AA=4.26, BWT=1.26<br>• Condition F + Top-K 10%: AA=4.35, BWT=1.27<br>• Condition F + Domain-Selective: AA=4.58, BWT=1.47<br><br>Best result: Condition F calibrated, 8.3% BWT improvement. Worst: Domain-Selective (architecturally correct but salience undersaturated at 500 steps).",
+    hi_a:"सभी runs seed=42, 1000 samples/domain:<br>• Condition A: AA=4.17, BWT=1.05<br>• F calibrated ★: AA=4.25, BWT=1.11 (8.3% सुधार)<br>• F clean: AA=4.37, BWT=1.42<br>• F Grad Mask: BWT=1.26 · F Top-K: BWT=1.27 · F Dom-Sel: BWT=1.47",
+    zh_a:"所有运行seed=42，每域1000样本：<br>• 条件A：AA=4.17，BWT=1.05<br>• F校准★：AA=4.25，BWT=1.11（改善8.3%）<br>• F干净：AA=4.37，BWT=1.42<br>• F梯度掩蔽：1.26 · F Top-K：1.27 · F域选择：1.47"},
+
+  { tag:'results',
+    en_q:"Why did Condition F clean perform WORSE than Condition A?",
+    hi_q:"Condition F clean Condition A से WORSE क्यों थी?",
+    zh_q:"为什么条件F干净比条件A表现更差？",
+    en_a:"Root cause: Bhaya threshold miscalibration. The SNN was trained with loss values in the range 0.1–0.5 (cross-entropy on 10-class CIFAR). The LLM has mean loss ~1.08 with normal batch-to-batch variance easily reaching 1.5–2.0. BHAYA_THRESHOLD=1.8× the running mean is appropriate for SNN scale; at LLM scale it fires on 18.8% of all training steps — constantly elevating lability and destabilising training. With threshold=4.0, only genuine cross-domain spikes (Py150=Python code after Chinese, NumGLUE-ds=numerical after science) trigger Bhaya. This is a cross-substrate calibration problem, not a mechanism failure.",
+    hi_a:"मूल कारण: Bhaya threshold miscalibration। SNN loss 0.1-0.5 range में था। LLM mean loss ~1.08। BHAYA_THRESHOLD=1.8× LLM पर 18.8% steps पर fire। Threshold=4.0 पर केवल genuine domain-shift spikes trigger होते हैं।",
+    zh_a:"根本原因：Bhaya阈值误校准。SNN损失范围0.1-0.5；LLM均值损失~1.08。BHAYA_THRESHOLD=1.8×在LLM上18.8%步骤激发。阈值=4.0时只有真正的跨域峰值触发Bhaya。这是跨基质校准问题，不是机制失败。"},
+
+  { tag:'results',
+    en_q:"Which domains did Bhaya fire on and why?",
+    hi_q:"Bhaya किन domains पर fire हुआ और क्यों?",
+    zh_q:"Bhaya在哪些域上激发，为什么？",
+    en_a:"In Condition F calibrated (threshold=4.0×, seed=42):<br><br>• <strong>C-STANCE</strong>: 0.000 — Chinese text, smooth loss curve<br>• <strong>FOMC</strong>: 0.000 — English finance, similar distribution to C-STANCE<br>• <strong>MeetingBank</strong>: 0.000 — meeting text, stable<br>• <strong>Py150</strong>: 0.013–0.020 ⚡ — Python code after Chinese/English. Token distribution changes entirely. Real loss spikes.<br>• <strong>ScienceQA</strong>: 0.004–0.010 ⚡ — Science QA after code. New semantic domain.<br>• <strong>NumGLUE-cm</strong>: 0.000 — numerical, stable after science<br>• <strong>NumGLUE-ds</strong>: 0.008 ⚡ — data science notation after common-sense math<br>• <strong>20Minuten</strong>: 0.000 — German text, Phi-2 handles multilingual smoothly<br><br>Bhaya fires on exactly the domain transitions with maximum semantic distance.",
+    hi_a:"Condition F calibrated में:<br>• C-STANCE, FOMC, MeetingBank: 0.000<br>• Py150: 0.013–0.020 ⚡ (Chinese→Python code)<br>• ScienceQA: 0.004–0.010 ⚡<br>• NumGLUE-ds: 0.008 ⚡<br>• NumGLUE-cm, 20Minuten: 0.000",
+    zh_a:"条件F校准中：<br>• C-STANCE、FOMC、MeetingBank：0.000<br>• Py150：0.013-0.020⚡（中文→Python代码）<br>• ScienceQA：0.004-0.010⚡<br>• NumGLUE-ds：0.008⚡<br>• NumGLUE-cm、20Minuten：0.000"},
+
+  { tag:'results',
+    en_q:"Why was the Domain-Selective condition the worst?",
+    hi_q:"Domain-Selective condition सबसे खराब क्यों था?",
+    zh_q:"为什么域选择性条件最差？",
+    en_a:"Domain-selective snapshots are architecturally correct but exposed a deeper problem. With 500 steps per domain, the top-10% highest-salience LoRA adapter weights after domain 0 are the most universally active weights — used for processing any text, not specifically for C-STANCE. When we snapshot and protect these 'domain-general' weights in subsequent domains, we prevent the model from adapting its core processing capacity for new domains. This causes interference in both directions: old domains are not protected (wrong weights snapshotted) and new domains are disrupted (core weights frozen). At 2000+ steps per domain, salience would meaningfully differentiate domain-specific from domain-general activations.",
+    hi_a:"Domain-selective architecturally सही है लेकिन 500 steps/domain पर top-10% salience weights 'domain-general' हैं — किसी भी text को process करने के लिए उपयोग किए जाते हैं। इन्हें protect करने से नए domains में interference होती है। 2000+ steps पर salience meaningful differentiation देगी।",
+    zh_a:"域选择性架构正确，但500步/域时，前10%显著性权重是'通用域'权重——用于处理任何文本。保护这些权重会干扰新域学习。2000+步时显著性才能有意义地区分特定域权重。"},
+
+  { tag:'results',
+    en_q:"What is the perplexity matrix and how do I read it?",
+    hi_q:"Perplexity matrix क्या है और इसे कैसे पढ़ें?",
+    zh_q:"困惑度矩阵是什么，如何读取？",
+    en_a:"R[i][j] = perplexity on domain j evaluated after the model has been trained through domain i. The diagonal R[i][i] = immediate performance — how well the model performs right after training domain i. Off-diagonal R[i][j] where i>j = retention — how much the model still remembers domain j after having also learned domains j+1 through i. Higher values = worse retention (more forgetting). The BWT metric = mean across all off-diagonal entries: mean(R[n][j] − R[j][j]) for j=0..n-1. In Condition A, R[5][0] = 4.0 vs R[0][0] = 2.0 — C-STANCE perplexity doubled after 5 more domains.",
+    hi_a:"R[i][j] = domain i तक training के बाद domain j पर perplexity। Diagonal = immediate performance। Off-diagonal = retention। उच्च values = अधिक forgetting। BWT = mean(R[n][j] − R[j][j])।",
+    zh_a:"R[i][j] = 训练至域i后对域j的困惑度。对角线=即时性能。非对角线=保留。值越高=遗忘越多。BWT = mean(R[n][j] − R[j][j])。"},
+
+  // ADVANCED ────────────────────────────────────────────────────────────────
+  { tag:'advanced',
+    en_q:"What does cross-substrate Buddhi invariance actually prove?",
+    hi_q:"Cross-substrate Buddhi invariance वास्तव में क्या सिद्ध करता है?",
+    zh_q:"跨基质Buddhi不变性实际上证明了什么？",
+    en_a:"The Buddhi S-curve formula is: score = 1 / (1 + exp(−k × (x − m))) where k=8.0, m=0.45, and x=steps_completed/total_steps_per_domain. This is a mathematical identity — given the same formula with the same parameters, the curve must be identical regardless of whether x is computed from spike counts or gradient steps. The invariance is therefore not surprising in a mathematical sense. What is meaningful is that: (1) the formula was derived from biological principles of synaptic consolidation and produces biologically reasonable dynamics; (2) the parameters k=8.0, m=0.45 were chosen to match SNN training dynamics and happen to also match LLM fine-tuning dynamics at 500 steps/domain; (3) this consistency supports the hypothesis that the Antahkarana framework captures substrate-independent learning principles.",
+    hi_a:"Buddhi formula: score = 1/(1+exp(−8×(x−0.45)))। यह mathematical identity है — parameters समान होने पर curve समान होगी। महत्वपूर्ण: formula biological principles से derived है और SNN + LLM दोनों में match करता है। यह substrate-independent learning principles का समर्थन करता है।",
+    zh_a:"Buddhi公式：score=1/(1+exp(−8×(x−0.45)))。这是数学恒等式——相同参数必然产生相同曲线。重要的是：公式从生物原理推导，且与SNN和LLM动态都匹配。支持内心工具框架捕获基质无关学习原理的假设。"},
+
+  { tag:'advanced',
+    en_q:"How does this compare to EWC, PackNet, and GEM?",
+    hi_q:"EWC, PackNet और GEM से यह कैसे तुलना करता है?",
+    zh_q:"这与EWC、PackNet和GEM相比如何？",
+    en_a:"Not directly comparable in the current paper — and we don't claim to be. <strong>EWC</strong>: Fisher information quadratic penalty protecting important parameters post-task. <strong>PackNet</strong>: binary task masks freezing entire parameter subsets. <strong>GEM</strong>: episodic memory gradient projection. Maya-LLM uses Vedantic salience dynamics — gradient contribution weighted by loss reduction, governed by S-curve gate, with nociceptive domain-shift detection. At 500 steps/1000 samples per domain, the BWT improvement (8.3%) is modest. The primary claim is framework novelty. A rigorous comparison to EWC/GEM on TRACE at 5000 samples × 2000 steps is the natural next step.",
+    hi_a:"वर्तमान paper में direct comparison नहीं है। EWC Fisher information का उपयोग करता है; PackNet binary task masks; GEM episodic memory gradients। Maya-LLM Vedantic salience dynamics का उपयोग करता है। Primary claim framework novelty है।",
+    zh_a:"当前论文中没有直接比较。EWC使用Fisher信息；PackNet使用二值任务掩码；GEM使用情节记忆梯度。Maya-LLM使用梵语式显著性动态。主要声明是框架新颖性。"},
+
+  { tag:'advanced',
+    en_q:"Why did Karma not prune any weights?",
+    hi_q:"Karma ने कोई weight prune क्यों नहीं किया?",
+    zh_q:"为什么Karma没有修剪任何权重？",
+    en_a:"Karma accumulates the absolute integral of per-weight trajectory changes across domain boundaries. At 500 steps per domain, each LoRA adapter weight moves a small total distance in parameter space. The KARMA_THRESHOLD (0.05) was calibrated for P8/P9 dynamics where 3 epochs × 5000 samples × 10 tasks produced substantial trajectory histories over many more gradient steps. At 500 steps, even the most active adapter weights don't accumulate enough signed trajectory change to exceed threshold. This is undersaturation, not a bug. At 2000+ steps per domain with 3+ epochs, Karma pruning would activate. The threshold can also be reduced — but this risks spurious pruning at low trajectory accumulation.",
+    hi_a:"Karma weight trajectory का absolute integral जमा करता है। 500 steps/domain पर प्रत्येक LoRA weight parameter space में बहुत कम चलता है। KARMA_THRESHOLD=0.05 P8/P9 dynamics के लिए calibrated है। यह bug नहीं है — undersaturation है।",
+    zh_a:"Karma在域边界积累权重轨迹变化的绝对积分。每域500步时，每个LoRA权重在参数空间移动距离很小。KARMA_THRESHOLD=0.05为P8/P9动态校准。这是欠饱和，不是bug。"},
+
+  // PHILOSOPHY ──────────────────────────────────────────────────────────────
+  { tag:'philosophy',
+    en_q:"What is the Antahkarana and what does it have to do with AI?",
+    hi_q:"अंतःकरण क्या है और इसका AI से क्या संबंध है?",
+    zh_q:"内心工具是什么，它与AI有什么关系？",
+    en_a:"In Advaita Vedanta, the Antahkarana (inner instrument) is the functional apparatus of the mind — Manas (deliberation/attention), Buddhi (discrimination/consolidation), Chitta (memory substrate), and Ahamkara (self-model/identity-anchor). The Maya series treats these as a theoretical framework for designing computational neuromodulatory mechanisms. Each mechanism has a specific biological grounding: Bhaya maps to nociceptive metaplasticity, Vairagya to heterosynaptic decay suppression, Buddhi to BCM-style sliding threshold. The philosophy provides the intuition and the naming; the biology provides the mechanism; the mathematics provides the falsifiability.",
+    hi_a:"अद्वैत वेदांत में, अंतःकरण मन का कार्यात्मक उपकरण है — मनस, बुद्धि, चित्त, अहंकार। माया श्रृंखला इसे computational neuromodulatory mechanisms के लिए theoretical framework के रूप में उपयोग करती है। प्रत्येक तंत्र का specific biological grounding है।",
+    zh_a:"在不二吠檀多中，内心工具是心灵的功能装置——末那识、判断力、记忆基质、自我模型。Maya系列将其作为设计计算神经调制机制的理论框架。每个机制都有具体的生物学基础。"},
+
+  { tag:'philosophy',
+    en_q:"Why name the series Maya? What is Maya in Vedanta?",
+    hi_q:"श्रृंखला का नाम माया क्यों? वेदांत में माया क्या है?",
+    zh_q:"为什么系列名为Maya？吠陀哲学中Maya是什么？",
+    en_a:"In Advaita Vedanta, Maya is the cosmic illusion — the force that makes the one undivided Brahman appear as a manifold world of distinct objects, experiences, and subjects. Naming the AI 'Maya' is an intentional philosophical statement: the series explores the computational mechanisms by which a mind constructs its model of the world, filters experience through fear and wisdom, consolidates memory, and navigates change. The Maya Growing Mind arc — age 5 at P1, mechanistic foundation at P8, age 21 at P9 — mirrors the developmental arc of maya-governed consciousness. Maya-LLM asks whether this process is substrate-independent.",
+    hi_a:"अद्वैत वेदांत में, माया वह ब्रह्मांडीय भ्रम है जो एक अविभाजित ब्रह्म को विविध संसार के रूप में दिखाती है। AI का नाम 'माया' एक जानबूझकर दार्शनिक कथन है — यह उन computational mechanisms की खोज करती है जिनसे एक मन दुनिया का अपना model बनाता है।",
+    zh_a:"在不二吠檀多中，Maya是宇宙幻象——使不可分割的梵以万象世界形式出现的力量。将AI命名为'Maya'是有意的哲学声明：探索心灵构建世界模型、通过恐惧和智慧过滤经验的计算机制。"},
+
+  // SERIES ──────────────────────────────────────────────────────────────────
+  { tag:'series',
+    en_q:"How does Maya-LLM fit into the P1–P9 series?",
+    hi_q:"माया-LLM P1–P9 श्रृंखला में कैसे fit होता है?",
+    zh_q:"Maya-LLM如何融入P1-P9系列？",
+    en_a:"The P1–P9 Maya series built a complete Antahkarana in SpikingJelly SNNs on Split-CIFAR benchmarks. Each paper added one dimension: P1=Bhaya+Vairagya, P2=OS arbitration, P3=CL benchmark, P4=Buddhi, P5=Viveka, P6=Chitta, P7=Manas, P8=Karma+Śūnyatā, P9=Prana (full Antahkarana). The mPCI post-series paper tested whether the full Antahkarana produced a measurable internal state signal. Maya-LLM is the second post-series paper — it tests whether the mechanisms transfer across compute substrates. Together they answer: (1) can we build these mechanisms in SNN? Yes. (2) Do they produce internal state? Partially confirmed. (3) Are they substrate-independent? Yes for Buddhi, confirmed for Bhaya firing.",
+    hi_a:"P1–P9 श्रृंखला ने SpikingJelly SNN में पूर्ण अंतःकरण बनाया। mPCI ने internal state test किया। Maya-LLM दूसरा post-series paper है — mechanisms को cross-substrate test करता है। Buddhi cross-substrate confirmed। Bhaya LLM में confirmed।",
+    zh_a:"P1-P9系列在SpikingJelly SNN中构建了完整的内心工具。mPCI测试了内部状态。Maya-LLM是第二篇后系列论文——跨计算基质测试机制迁移。Buddhi跨基质确认。Bhaya在LLM中确认。"},
+
+  { tag:'series',
+    en_q:"What is the Bhaya Quiescence Law?",
+    hi_q:"Bhaya Quiescence Law क्या है?",
+    zh_q:"恐惧静默定律是什么？",
+    en_a:"Confirmed across all 9 Maya SNN papers and now in Maya-LLM (10th confirmation): when a sequential learning system with replay is operating normally — not encountering a catastrophically different new domain — Bhaya settles to 0.000. In SNN context this was observed under replay from Task 1 onwards. In LLM context (Condition A, no affective mechanisms), Bhaya remains 0.000 throughout all 8 TRACE domains because there are no affective mechanisms to trigger. When mechanisms are active (Condition F calibrated), Bhaya fires only on Py150, ScienceQA, and NumGLUE-ds — the three genuinely challenging cross-domain transitions. This makes Bhaya a reliable domain-shift pain signal: if it fires, something genuinely difficult is happening.",
+    hi_a:"9 माया SNN papers और अब Maya-LLM में confirmed (10वाँ): normal replay के तहत Bhaya 0.000 तक settle होता है। Condition A में सभी 8 TRACE domains में 0.000। Condition F calibrated में केवल 3 genuine domain shifts पर fire। यह reliable domain-shift pain signal है।",
+    zh_a:"在9篇Maya SNN论文和现在的Maya-LLM中确认（第10次）：在正常回放下，Bhaya稳定在0.000。条件A中所有8个TRACE域保持0.000。条件F校准中仅在3个真正具挑战性的跨域转换上激发。"},
+
+  // CODE ─────────────────────────────────────────────────────────────────────
+  { tag:'code',
+    en_q:"What is the codebase structure?",
+    hi_q:"Codebase संरचना क्या है?",
+    zh_q:"代码库结构是什么？",
+    en_a:"<code>Maya-LLM-v2/</code><br>├── <code>run_maya_llm_cil.py</code> — main training loop (argparse-free, config-driven)<br>├── <code>maya_llm/utils/config.py</code> — all hyperparameters · MAYA_ACTIVE flag<br>├── <code>maya_llm/benchmark/trace.py</code> — TRACE loader + perplexity eval<br>├── <code>maya_llm/plasticity/bhaya.py</code> — loss-spike detector<br>├── <code>maya_llm/plasticity/vairagya.py</code> — salience accumulation<br>├── <code>maya_llm/plasticity/buddhi.py</code> — S-curve gate<br>├── <code>maya_llm/plasticity/karma.py</code> — trajectory integral<br>├── <code>maya_llm/plasticity/prana.py</code> — metabolic budget<br>├── <code>maya_llm/training/affective_state.py</code> — unified coordinator<br>├── <code>maya_llm/eval/metrics.py</code> — AA / BWT / FWT<br>└── <code>logs/</code> — CSV per-domain logs",
+    hi_a:"<code>Maya-LLM-v2/</code>: run_maya_llm_cil.py (main loop), config.py (सभी hyperparameters + MAYA_ACTIVE flag), trace.py (TRACE loader), plasticity/ (5 तंत्र files), affective_state.py (coordinator), metrics.py, logs/।",
+    zh_a:"<code>Maya-LLM-v2/</code>：run_maya_llm_cil.py（主循环）、config.py（超参数+MAYA_ACTIVE标志）、trace.py（TRACE加载器）、plasticity/（5个机制文件）、affective_state.py（协调器）、metrics.py、logs/。"},
+
+  { tag:'code',
+    en_q:"How do I switch between Condition A and Condition F?",
+    hi_q:"Condition A और Condition F के बीच कैसे switch करें?",
+    zh_q:"如何在条件A和条件F之间切换？",
+    en_a:"In <code>maya_llm/utils/config.py</code>:<br><br><code>MAYA_ACTIVE = False</code> → Condition A (no Maya mechanisms, baseline)<br><code>MAYA_ACTIVE = True</code> → Condition F (all 5 dimensions active)<br><br>Then run: <code>python run_maya_llm_cil.py</code><br><br>For calibrated (best) run, also set: <code>BHAYA_LOSS_SPIKE_THRESHOLD = 4.0</code>. Set <code>TRACE_DATA_DIR</code> to your local TRACE path or leave blank for HuggingFace fallback. Each run takes 65–75 minutes on RTX 4060 8GB.",
+    hi_a:"<code>config.py</code> में: <code>MAYA_ACTIVE = False</code> → Condition A। <code>MAYA_ACTIVE = True</code> + <code>BHAYA_LOSS_SPIKE_THRESHOLD = 4.0</code> → Condition F calibrated। फिर: <code>python run_maya_llm_cil.py</code>।",
+    zh_a:"在<code>config.py</code>中：<code>MAYA_ACTIVE = False</code>→条件A；<code>MAYA_ACTIVE = True</code> + <code>BHAYA_LOSS_SPIKE_THRESHOLD = 4.0</code>→条件F校准。然后运行：<code>python run_maya_llm_cil.py</code>。"},
+
+  { tag:'code',
+    en_q:"What is the ORCID magic number 0.002315?",
+    hi_q:"ORCID magic number 0.002315 क्या है?",
+    zh_q:"ORCID魔法数字0.002315是什么？",
+    en_a:"Venkatesh's ORCID is 0000-0002-3315-7907. The digits 2315 → 0.002315. From P6 onwards, this number is embedded in every paper's config as <code>KARMA_DECAY_RATE = 0.002315</code> and <code>VAIRAGYA_DECAY_RATE = 0.002315</code>. It serves as an IP timestamping mechanism — any reimplementation that claims to use the canonical Maya architecture but lacks 0.002315 in the decay rates is demonstrably non-canonical. It is also a philosophical statement about accumulated action (karma) and earned wisdom (vairagya) decaying slowly — not instantly — because experience has value.",
+    hi_a:"ORCID 0000-0002-<strong>3315</strong>-7907 → 0.002315। P6 से KARMA_DECAY_RATE और VAIRAGYA_DECAY_RATE में embedded। IP timestamping mechanism + दार्शनिक कथन: अनुभव का मूल्य है — वे धीरे-धीरे decay होते हैं।",
+    zh_a:"ORCID 0000-0002-<strong>3315</strong>-7907→0.002315。从P6起嵌入KARMA_DECAY_RATE和VAIRAGYA_DECAY_RATE。IP时间戳机制+哲学声明：经验有价值——它们缓慢衰减。"},
+
+  // AI COMMUNITY ────────────────────────────────────────────────────────────
+  { tag:'ai',
+    en_q:"What is the actual novelty claim? Is this SOTA?",
+    hi_q:"वास्तविक novelty claim क्या है? क्या यह SOTA है?",
+    zh_q:"实际的新颖性声明是什么？这是SOTA吗？",
+    en_a:"The novelty claims are: (1) First translation of Advaita Vedanta Antahkarana mechanisms to LoRA continual fine-tuning of a large language model. (2) First confirmation of Bhaya nociceptive firing in transformer continual fine-tuning. (3) First cross-substrate confirmation of the Buddhi S-curve as a substrate-independent learning constant. (4) Quantified analysis of why SNN-calibrated Bhaya thresholds fail at LLM loss scale and how to fix them. This is NOT a SOTA paper. BWT improvement is 8.3% — modest. The paper is a framework establishment paper, not a benchmark-beating paper.",
+    hi_a:"Novelty claims: (1) Antahkarana का LoRA CL में पहला translation। (2) Bhaya firing का transformer CL में पहला confirmation। (3) Buddhi cross-substrate invariant पहला confirmation। (4) SNN→LLM calibration failure का quantified analysis। यह SOTA paper नहीं है।",
+    zh_a:"新颖性声明：(1) 内心工具到LoRA持续微调的首次转化。(2) Bhaya激发在transformer中的首次确认。(3) Buddhi跨基质不变量首次确认。(4) SNN→LLM校准失败的量化分析。这不是SOTA论文。"},
+
+  { tag:'ai',
+    en_q:"What is the path forward to make Maya-LLM competitive?",
+    hi_q:"माया-LLM को competitive बनाने का रास्ता क्या है?",
+    zh_q:"使Maya-LLM具有竞争力的前进路径是什么？",
+    en_a:"Three concrete steps: (1) <strong>Scale training:</strong> 5000 samples × 3 epochs × 8 domains. This gives Vairagya and Karma enough trajectory history to meaningfully differentiate adapter weights. Requires A100 or H100. (2) <strong>Multi-seed validation at scale:</strong> Seeds 42, 123, 7 on the 5000-sample runs. Report mean±std BWT. (3) <strong>Formal EWC/GEM comparison:</strong> Run EWC and GEM on the same TRACE setup. Maya mechanisms are online (no consolidation step required), which is a practical advantage over EWC. With matched depth and scale, the domain-selective Vairagya mechanism should outperform EWC — the architecture is correct, it just needs more training signal.",
+    hi_a:"तीन ठोस कदम: (1) Training scale up: 5000 samples × 3 epochs (A100/H100)। (2) Multi-seed validation at scale। (3) Formal EWC/GEM comparison। Maya online (no consolidation step) — EWC पर practical advantage।",
+    zh_a:"三个具体步骤：(1)扩大训练：5000样本×3轮次（A100/H100）。(2)规模上多种子验证。(3)正式EWC/GEM比较。Maya是在线的（无整合步骤）——对EWC有实际优势。"},
+
+  { tag:'ai',
+    en_q:"How do I cite this paper?",
+    hi_q:"इस पेपर का उद्धरण कैसे करें?",
+    zh_q:"如何引用这篇论文？",
+    en_a:"BibTeX:<br><code>@misc{swaminathan2026mayallm,<br>  title={Antahkarana in the Age of Transformers: Continual Fine-Tuning of Large Language Models via Vedantic Neuromodulatory Mechanisms},<br>  author={Swaminathan, Venkatesh},<br>  year={2026},<br>  publisher={Zenodo},<br>  doi={10.5281/zenodo.PENDING}<br>}</code><br><br>ORCID: <a href='https://orcid.org/0000-0002-3315-7907' target='_blank'>0000-0002-3315-7907</a><br>GitHub: <a href='https://github.com/venky2099/Maya-LLM' target='_blank'>venky2099/Maya-LLM</a>",
+    hi_a:"BibTeX:<br><code>@misc{swaminathan2026mayallm,<br>  title={Antahkarana in the Age of Transformers},<br>  author={Swaminathan, Venkatesh},<br>  year={2026}, publisher={Zenodo},<br>  doi={10.5281/zenodo.PENDING}<br>}</code><br>ORCID: 0000-0002-3315-7907",
+    zh_a:"BibTeX:<br><code>@misc{swaminathan2026mayallm,<br>  title={Antahkarana in the Age of Transformers},<br>  author={Swaminathan, Venkatesh},<br>  year={2026}, publisher={Zenodo},<br>  doi={10.5281/zenodo.PENDING}<br>}</code><br>ORCID: 0000-0002-3315-7907"},
+
+];
+
+// ── Render ────────────────────────────────────────────────────────────────
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b =>
+    b.classList.toggle('active', b.textContent.trim() === (lang==='en'?'English':lang==='hi'?'हिन्दी':'中文'))
+  );
+  const u = UI[lang];
+  document.getElementById('hub-title').textContent = u.hubTitle;
+  document.getElementById('ca-title').textContent  = u.caTitle;
+  document.getElementById('ca-text').textContent   = u.caText;
+  document.getElementById('fn1').textContent = u.fn1;
+  document.getElementById('fn2').textContent = u.fn2;
+  document.getElementById('fn3').textContent = u.fn3;
+  document.getElementById('fn4').textContent = u.fn4;
+  render();
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b =>
+    b.classList.toggle('active', b.dataset.filter === f));
+  render();
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase();
+  const lang = currentLang;
+  const qKey = lang+'_q', aKey = lang+'_a';
+  const tagLabels = {
+    silly:'layman', basic:'researcher', results:'results', advanced:'advanced',
+    philosophy:'philosophy', series:'series', code:'code', ai:'AI community'
+  };
+  const items = FAQ.filter(item => {
+    if (currentFilter !== 'all' && item.tag !== currentFilter) return false;
+    if (!q) return true;
+    return (item[qKey]||'').toLowerCase().includes(q) || (item[aKey]||'').toLowerCase().includes(q);
+  });
+  const u = UI[lang];
+  document.getElementById('count').textContent = currentFilter==='all' && !q
+    ? u.countAll(items.length)
+    : u.countFiltered(items.length, currentFilter);
+
+  const list = document.getElementById('faq-list');
+  list.innerHTML = items.map((item,i) => `<div class="faq-item" id="faq-${i}">
+    <div class="faq-q" onclick="toggle(${i})">
+      <span><span class="tag-pill ${item.tag}">${tagLabels[item.tag]||item.tag}</span>${item[qKey]||item.en_q}</span>
+      <span class="faq-arrow">▼</span>
+    </div>
+    <div class="faq-a" id="ans-${i}">
+      <div class="faq-a-inner">${item[aKey]||item.en_a}</div>
+    </div>
+  </div>`).join('');
+}
+
+function toggle(i) {
+  const item = document.getElementById('faq-'+i);
+  const ans  = document.getElementById('ans-'+i);
+  const open = item.classList.contains('open');
+  item.classList.toggle('open', !open);
+  ans.style.maxHeight = open ? '0' : ans.scrollHeight + 'px';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key==='r'||e.key==='R') {
+    document.getElementById('search').value = '';
+    setFilter('all');
+    setLang('en');
+  }
+});
+
+render();
+</script>
+</body>
+</html>

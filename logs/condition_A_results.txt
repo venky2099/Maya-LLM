@@ -1,0 +1,4 @@
+Condition A ? Baseline
+AA=9.42 | BWT=8.34 | FWT=0.00
+Runtime=80.7min
+Bhaya Quiescence=True
