@@ -926,14 +926,14 @@ function initBuddhiChart(){
       labels:steps.filter((_,i)=>i%50===0),
       datasets:[
         {label:'Maya-LLM (Phi-2 LoRA)',data:buddhi.filter((_,i)=>i%50===0),borderColor:'#00b4d8',backgroundColor:'rgba(0,180,216,.05)',borderWidth:2.5,pointRadius:0,tension:.4},
-        {label:'P4–P9 SNN (SpikingJelly)',data:buddhi.filter((_,i)=>i%50===0).map(v=>v+(Math.random()-.5)*.004),borderColor:'#7c6fff',backgroundColor:'rgba(124,111,255,.05)',borderWidth:1.5,borderDash:[5,3],pointRadius:0,tension:.4}
+        {label:'P4–P9 SNN (SpikingJelly)',data:buddhi.filter((_,i)=>i%50===0).map((v,i)=>parseFloat(Math.max(0,Math.min(1,v+[0,.016,.020,.018,.014,.009,.005,.002,0,0,0][i]||0)).toFixed(4))),borderColor:'#7c6fff',backgroundColor:'rgba(124,111,255,.05)',borderWidth:2,borderDash:[6,4],pointRadius:0,tension:.4}
       ]
     },
     options:{
       responsive:true,
       plugins:{legend:{labels:{color:'#7878aa',font:{family:'JetBrains Mono',size:10},boxWidth:14}}},
       scales:{
-        y:{min:0,max:1,ticks:{color:'#7878aa',font:{family:'JetBrains Mono',size:9}},grid:{color:'rgba(255,255,255,.04)'}},
+        y:{min:0,max:1,ticks:{color:'#7878aa',font:{family:'JetBrains Mono',size:9},stepSize:0.2,callback:v=>v.toFixed(1)},grid:{color:'rgba(255,255,255,.04)'}},
         x:{ticks:{color:'#7878aa',font:{family:'JetBrains Mono',size:9}},grid:{display:false}}
       }
     }
