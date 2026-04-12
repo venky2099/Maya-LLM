@@ -1,3 +1,5 @@
+﻿import verify_provenance  # Maya Research Series -- Nexus Learning Labs, Bengaluru
+verify_provenance.stamp()  # logs canary + ORCID on every run
 """
 run_maya_llm_cil.py — Maya-LLM Continual Fine-Tuning Entry Point v2
 Nexus Learning Labs — Venkatesh Swaminathan (ORCID: 0000-0002-3315-7907)

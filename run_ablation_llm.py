@@ -1,3 +1,5 @@
+﻿import verify_provenance  # Maya Research Series -- Nexus Learning Labs, Bengaluru
+verify_provenance.stamp()  # logs canary + ORCID on every run
 """
 run_ablation_llm.py — Maya-LLM Ablation Study v2
 Nexus Learning Labs — Maya Research Series
