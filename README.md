@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.PENDING.svg)](https://doi.org/10.5281/zenodo.PENDING)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19522348.svg)](https://doi.org/10.5281/zenodo.19522348)
 [![Series](https://img.shields.io/badge/Maya%20Research%20Series-Post--Series-00b4d8?style=flat-square)](https://venky2099.github.io/)
 [![Status](https://img.shields.io/badge/Status-LLM%20Extension%20✦-00b4d8?style=flat-square)](https://venky2099.github.io/)
 [![ORCID](https://img.shields.io/badge/ORCID-0000--0002--3315--7907-a6ce39?style=flat-square&logo=orcid)](https://orcid.org/0000-0002-3315-7907)
@@ -12,7 +12,7 @@
 
 **Venkatesh Swaminathan** · Nexus Learning Labs, Bengaluru, India · M.Sc. DS&AI, BITS Pilani
 
-[📄 Paper](https://doi.org/10.5281/zenodo.PENDING) · [🎛️ Interactive Dashboard](https://venky2099.github.io/Maya-LLM/docs/maya_llm_dashboard.html) · [❓ FAQ](https://venky2099.github.io/Maya-LLM/docs/maya_llm_faq.html) · [🌐 Research Hub](https://venky2099.github.io/)
+[📄 Paper](https://doi.org/10.5281/zenodo.19522348) · [🎛️ Interactive Dashboard](https://venky2099.github.io/Maya-LLM/docs/maya_llm_dashboard.html) · [❓ FAQ](https://venky2099.github.io/Maya-LLM/docs/maya_llm_faq.html) · [🌐 Research Hub](https://venky2099.github.io/)
 
 </div>
 
@@ -291,8 +291,8 @@ All figures, code, and documents carry four layers of provenance:
 
 ## Maya Research Series — Complete + Post-Series
 
-| Paper | Title | Key Result | DOI |
-|---|---|---|---|
+| Paper | Title | Key Result | DOI                                                                |
+|---|---|---|--------------------------------------------------------------------|
 | P1 | Nociceptive Metaplasticity | 66.6% elevated synaptic velocity | [10.5281/zenodo.19151563](https://doi.org/10.5281/zenodo.19151563) |
 | P2 | Maya-OS | Emergent Shraddha safety primitive | [10.5281/zenodo.19160123](https://doi.org/10.5281/zenodo.19160123) |
 | P3 | Maya-CL | AA=62.38% TIL Split-CIFAR-10 | [10.5281/zenodo.19201769](https://doi.org/10.5281/zenodo.19201769) |
@@ -303,7 +303,7 @@ All figures, code, and documents carry four layers of provenance:
 | P8 | Maya-Śūnyatā | AA=10.39%, 59.28% pruned | [10.5281/zenodo.19397010](https://doi.org/10.5281/zenodo.19397010) |
 | P9 | Maya-Prana | AA=12.72%, full Antahkarana | [10.5281/zenodo.19451174](https://doi.org/10.5281/zenodo.19451174) |
 | mPCI | Maya-mPCI | Δ=−0.0489, 2.05× threshold | [10.5281/zenodo.19482794](https://doi.org/10.5281/zenodo.19482794) |
-| **LLM ★** | **Maya-LLM** | **BWT=1.11 · Buddhi cross-substrate** | Pending |
+| **LLM ★** | **Maya-LLM** | **BWT=1.11 · Buddhi cross-substrate** | [10.5281/zenodo.19522348](https://doi.org/10.5281/zenodo.19522348) |
 | Tool | cl-metrics | Stateless CIL evaluation library | [10.5281/zenodo.19388144](https://doi.org/10.5281/zenodo.19388144) |
 
 ---
@@ -317,8 +317,8 @@ All figures, code, and documents carry four layers of provenance:
   author    = {Swaminathan, Venkatesh},
   year      = {2026},
   publisher = {Zenodo},
-  doi       = {10.5281/zenodo.PENDING},
-  url       = {https://doi.org/10.5281/zenodo.PENDING}
+  doi       = {10.5281/zenodo.19522348},
+  url       = {https://doi.org/10.5281/zenodo.19522348}
 }
 ```
 
