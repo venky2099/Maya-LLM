@@ -1,0 +1,19 @@
+﻿cff-version: 1.2.0
+title: "Maya-LLM: Cross-Substrate Invariance of Affective Continual Learning Primitives in Large Language Models"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: Swaminathan
+    given-names: Venkatesh
+    orcid: "https://orcid.org/0000-0002-3315-7907"
+    affiliation: "Nexus Learning Labs, Bengaluru"
+repository-code: "https://github.com/venky2099/Maya-LLM"
+doi: 10.5281/zenodo.19522348
+date-released: "2026-04-12"
+license: MIT
+keywords:
+  - continual learning
+  - large language models
+  - neuromorphic
+  - Advaita Vedanta
+  - Maya Research Series
