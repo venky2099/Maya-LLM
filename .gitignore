@@ -6,3 +6,9 @@ outputs/
 *.pt
 *.bin
 *.safetensors
+
+# Added by fix_all_repos.py
+*.jsonl
+*.csv
+.env
+.maya_provenance.log
